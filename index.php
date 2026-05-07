@@ -33,7 +33,11 @@ if ($is_home):
             ?>
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm border-0 pet-card" style="border-radius: 15px; overflow: hidden; transition: transform 0.3s;">
-                        <img src="img/no-image.png" class="card-img-top pet-img" alt="Немає фото" style="height: 220px; object-fit: cover;">
+                        <?php if (!empty($pet['image'])): ?>
+                            <img src="img/<?= htmlspecialchars($pet['image']) ?>" class="card-img-top pet-img" alt="<?= htmlspecialchars($pet['name']) ?>" style="height: 220px; object-fit: cover;">
+                        <?php else: ?>
+                            <img src="img/no-image.png" class="card-img-top pet-img" alt="Немає фото" style="height: 220px; object-fit: cover;">
+                        <?php endif; ?>
                         <div class="card-body d-flex flex-column p-4">
                             <h5 class="card-title font-weight-bold"><?= htmlspecialchars($pet['name']) ?></h5>
                             <p class="card-text text-secondary">
