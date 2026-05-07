@@ -28,6 +28,27 @@ function get_pet_by_id($pet_id) {
     return mysqli_fetch_assoc($result);
 }
 
+function get_pets_by_category($category_id, $search = '', $gender = '', $status = '', $limit = 9, $offset = 0) {
+    global $conn;
+    $category_id = mysqli_real_escape_string($conn, $category_id);
+    $sql = "SELECT pets.*, categories.name as category_name 
+            FROM pets 
+            LEFT JOIN categories ON pets.category_id = categories.id 
+            WHERE category_id = '$category_id'";
+
+    $sql .= " ORDER BY pets.id ASC LIMIT $limit OFFSET $offset";
+    $result = mysqli_query($conn, $sql);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+function get_category_title($category_id) {
+    global $conn;
+    $category_id = mysqli_real_escape_string($conn, $category_id);
+    $sql = "SELECT * FROM categories WHERE id = '$category_id'";
+    $result = mysqli_query($conn, $sql);
+    return mysqli_fetch_assoc($result);
+}
+
 function get_recent_pets($limit = 6) {
     global $conn;
     $sql = "SELECT pets.*, categories.name as category_name 

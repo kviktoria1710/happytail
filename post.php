@@ -20,11 +20,11 @@ require_once 'include/header.php';
 
 <div class="container mt-4">
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb bg-transparent px-0">
-        <li class="breadcrumb-item"><a href="index.php" class="text-primary">Головна</a></li>
-        <li class="breadcrumb-item"><a href="category.php?category_id=<?= $pet['category_id'] ?>" class="text-primary"><?= htmlspecialchars($pet['category_name']) ?></a></li>
-        <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($pet['name']) ?></li>
-      </ol>
+        <ol class="breadcrumb bg-transparent px-0">
+            <li class="breadcrumb-item"><a href="index.php" class="text-primary">Головна</a></li>
+            <li class="breadcrumb-item"><a href="category.php?category_id=<?= $pet['category_id'] ?>" class="text-primary"><?= htmlspecialchars($pet['category_name']) ?></a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($pet['name']) ?></li>
+        </ol>
     </nav>
     
     <div class="card shadow-sm border-0 mb-4" style="border-radius: 15px; overflow: hidden; background: #fff; min-height: 550px;">
