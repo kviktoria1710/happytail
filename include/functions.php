@@ -57,6 +57,24 @@ function is_admin() {
     return isset($_SESSION['login']) && $_SESSION['login'] === 'admin';
 }
 
+function delete_pet($pet_id) {
+    global $conn;
+    $pet_id = mysqli_real_escape_string($conn, $pet_id);
+    
+    // Отримуємо назву фото перед видаленням запису
+    $res = mysqli_query($conn, "SELECT image FROM pets WHERE id = '$pet_id'");
+    if ($row = mysqli_fetch_assoc($res)) {
+        $image_path = __DIR__ . "/../img/" . $row['image'];
+        // Якщо фото існує і це не пустий рядок — видаляємо його фізично
+        if (!empty($row['image']) && file_exists($image_path)) {
+            unlink($image_path);
+        }
+    }
+    
+    $sql = "DELETE FROM pets WHERE id = '$pet_id'";
+    return mysqli_query($conn, $sql);
+}
+
 function get_recent_pets($limit = 6) {
     global $conn;
     $sql = "SELECT pets.*, categories.name as category_name 
