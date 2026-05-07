@@ -49,6 +49,14 @@ function get_category_title($category_id) {
     return mysqli_fetch_assoc($result);
 }
 
+// Функція для перевірки чи авторизований адмін
+function is_admin() {
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    return isset($_SESSION['login']) && $_SESSION['login'] === 'admin';
+}
+
 function get_recent_pets($limit = 6) {
     global $conn;
     $sql = "SELECT pets.*, categories.name as category_name 

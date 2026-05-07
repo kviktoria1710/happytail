@@ -50,6 +50,20 @@
                     <?php endif; 
                 endforeach; ?>
             </ul>
+            <ul class="navbar-nav">
+                <?php if (is_admin()): ?>
+                    <li class="nav-item mr-2">
+                        <a class="btn btn-dark btn-sm mt-1" href="<?= $base_path ?>admin/index.php">Адмінка</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-danger btn-sm mt-1" href="<?= $base_path ?>admin/logout.php">Вихід</a>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-dark btn-sm mt-1" href="<?= $base_path ?>login/index.php">Увійти</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
         </div>
     </div>
 </nav>
