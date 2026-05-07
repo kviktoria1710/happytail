@@ -5,3 +5,24 @@ function get_menu() {
     $result = mysqli_query($conn, $sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
+
+function get_all_pets($search = '', $gender = '', $status = '', $limit = 9, $offset = 0) {
+    global $conn;
+    $sql = "SELECT pets.*, categories.name as category_name 
+            FROM pets 
+            LEFT JOIN categories ON pets.category_id = categories.id WHERE 1=1";
+
+    $sql .= " ORDER BY pets.id ASC LIMIT $limit OFFSET $offset";
+    $result = mysqli_query($conn, $sql);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+function get_recent_pets($limit = 6) {
+    global $conn;
+    $sql = "SELECT pets.*, categories.name as category_name 
+            FROM pets 
+            LEFT JOIN categories ON pets.category_id = categories.id 
+            ORDER BY pets.id DESC LIMIT $limit";
+    $result = mysqli_query($conn, $sql);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}

@@ -3,7 +3,6 @@ html {
     overflow-y: scroll !important;
 }
 
-
 body {
     display: flex;
     flex-direction: column;
@@ -20,6 +19,31 @@ body {
 .navbar-brand {
     font-size: 1.5rem;
     letter-spacing: 1px;
+}
+
+/* Картки тварин */
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+}
+
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Кнопки */
+.btn-warning {
+    background-color: #f39c12;
+    border-color: #e67e22;
+    color: white;
+    font-weight: bold;
 }
 
 /* Футер */
