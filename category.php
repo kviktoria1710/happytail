@@ -17,13 +17,31 @@ if (!$category) {
 
 require_once 'include/header.php';
 
-$pets = get_pets_by_category($category_id);
+$search = $_GET['search'] ?? '';
+$gender = $_GET['gender'] ?? '';
+$status = $_GET['status'] ?? '';
+
+$limit = 9;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
+
+$total_pets = get_pets_count_filtered($search, $gender, $status, $category_id);
+$total_pages = ceil($total_pets / $limit);
+
+$pets = get_pets_by_category($category_id, $search, $gender, $status, $limit, $offset);
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="font-weight-bold"><?= htmlspecialchars($category['name']) ?></h2>
+    <?php if (is_admin()): ?>
+        <a href="admin/add-new.php" class="btn btn-success btn-sm">+ Додати тварину</a>
+    <?php endif; ?>
 </div>
 <hr class="mb-4">
+
+<?php require_once 'include/filters.php'; ?>
+
+<p class="text-muted mb-4">Знайдено у цій категорії: <?= $total_pets ?></p>
 
 <div class="row">
     <?php if (empty($pets)): ?>
@@ -39,15 +57,33 @@ $pets = get_pets_by_category($category_id);
                     <?php endif; ?>
                     <div class="card-body d-flex flex-column p-4">
                         <h5 class="card-title font-weight-bold"><?= htmlspecialchars($pet['name']) ?></h5>
+                        <p class="card-text text-muted small">Статус: <?= htmlspecialchars($pet['status']) ?></p>
                         <p class="card-text text-secondary">
                             <?= htmlspecialchars(mb_substr($pet['description'], 0, 100)) . '...' ?>
                         </p>
-                        <a href="post.php?pet_id=<?= $pet['id'] ?>" class="btn btn-warning flex-grow-1 mr-2 font-weight-bold">Детальніше</a>
+                        <div class="d-flex justify-content-between mt-auto">
+                            <a href="post.php?pet_id=<?= $pet['id'] ?>" class="btn btn-warning flex-grow-1 mr-2 font-weight-bold">Детальніше</a>
+                            <?php if (is_admin()): ?>
+                                <a href="admin/edit-new.php?pet_id=<?= $pet['id'] ?>" class="btn btn-outline-info px-3" title="Редагувати">✏️</a>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
 </div>
+
+<?php if ($total_pages > 1): ?>
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                <li class="page-item <?= ($page == $i) ? 'active' : '' ?>">
+                    <a class="page-link" href="?category_id=<?= $category_id ?>&page=<?= $i ?>&search=<?= urlencode($search) ?>&gender=<?= urlencode($gender) ?>&status=<?= urlencode($status) ?>"><?= $i ?></a>
+                </li>
+            <?php endfor; ?>
+        </ul>
+    </nav>
+<?php endif; ?>
 
 <?php require_once 'include/footer.php'; ?>
