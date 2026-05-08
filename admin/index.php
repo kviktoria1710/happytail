@@ -8,9 +8,9 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== 'admin') {
 require_once '../include/config.php';
 require_once '../include/functions.php';
 
-$pets = get_all_pets();
+$pets = get_all_pets('', '', '', 100, 0);
+$offset = 0;
 ?>
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -38,6 +38,19 @@ $pets = get_all_pets();
 </nav>
 
 <div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <ul class="nav nav-tabs mb-4">
+                <li class="nav-item">
+                    <a class="nav-link active font-weight-bold" href="index.php">🏠Тварини притулку</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="announcements.php">📢Загублені/Знайдені</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Список тварин притулку</h2>
         <a href="add-new.php" class="btn btn-success">Додати тварину</a>
@@ -61,7 +74,7 @@ $pets = get_all_pets();
                     <td colspan="7" class="text-center">Немає записів</td>
                 </tr>
             <?php else: ?>
-                <?php $counter = 1;?>
+                <?php $counter = 1 + $offset;?>
                 <?php foreach($pets as $pet): ?>
                     <tr>
                         <td><?= $counter++ ?></td>
