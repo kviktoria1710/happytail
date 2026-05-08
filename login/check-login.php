@@ -17,8 +17,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: ../index.php");
         exit();
     }
-    else {
-        $_SESSION['login_error'] = "Невірний логін або пароль!";
+
+    // Перевірка на звичайного користувача
+    $result = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email_or_login'");
+    if ($user = mysqli_fetch_assoc($result)) {
+        if (password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['name'];
+            
+            // Розумний редирект
+            $redirect = '../index.php';
+            if (isset($_POST['referer']) && strpos($_POST['referer'], 'lost-found.php') !== false) {
+                $redirect = '../lost-found.php';
+            }
+            
+            header("Location: $redirect");
+            exit();
+        } else {
+            $_SESSION['login_error'] = "Невірний пароль!";
+            header("Location: index.php");
+            exit();
+        }
+    } else {
+        $_SESSION['login_error'] = "Користувача не знайдено!";
         header("Location: index.php");
         exit();
     }

@@ -18,13 +18,16 @@ require_once '../include/header.php';
             <div class="card-body">
                 <h3 class="text-center">Вхід для користувачів</h3>
                 <hr>
+                <?php if(isset($_GET['registered'])): ?>
+                    <div class="alert alert-success">Реєстрація успішна! Увійдіть.</div>
+                <?php endif; ?>
                 <?php if($error): ?>
                     <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
                 <?php endif; ?>
                 <form action="check-login.php" method="post">
                     <input type="hidden" name="referer" value="<?= htmlspecialchars($_SERVER['HTTP_REFERER'] ?? '') ?>">
                     <div class="form-group">
-                        <label>Логін</label>
+                        <label>Email або Логін</label>
                         <input type="text" name="email" class="form-control" required>
                     </div>
                     <div class="form-group">
@@ -33,6 +36,9 @@ require_once '../include/header.php';
                     </div>
                     <button type="submit" class="btn btn-warning w-100">Увійти</button>
                 </form>
+                <div class="mt-3 text-center">
+                    Немає акаунту? <a href="register.php">Зареєструватися</a>
+                </div>
             </div>
         </div>
     </div>
