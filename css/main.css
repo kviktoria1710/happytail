@@ -46,8 +46,47 @@ body {
     font-weight: bold;
 }
 
+.btn-warning:hover {
+    background-color: #e67e22;
+    border-color: #d35400;
+    color: white;
+}
+
 /* Футер */
 footer {
     background-color: #2c3e50 !important;
     color: #ecf0f1;
+}
+
+/* Адмінка - форми */
+.form-control:focus {
+    border-color: #f39c12;
+    box-shadow: 0 0 0 0.2rem rgba(243, 156, 18, 0.25);
+}
+.announcement-card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.announcement-card:hover {
+    transform: scale(1.02);
+}
+
+.gap-2 {
+    gap: 0.5rem;
+}
+
+
+/* Забороняємо перенос тексту всередині пунктів меню */
+.navbar-nav .nav-link {
+    white-space: nowrap !important;
+}
+/* На екранах середнього розміру робимо відступи та шрифт компактнішими */
+@media (min-width: 992px) and (max-width: 1200px) {
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+        font-size: 0.85rem !important;
+    }
 }

@@ -73,6 +73,13 @@ require_once 'include/header.php';
             Ми розповімо про всі нюанси догляду саме за цією тваринкою та домовимось про зустріч!
         </p>
     </div>
+
+    <?php if (is_admin()): ?>
+        <div class="mt-5 pt-3 border-top text-right mb-5">
+            <a href="admin/edit-new.php?pet_id=<?= $pet['id'] ?>" class="btn btn-info btn-sm">Редагувати</a>
+            <a href="admin/delete-new.php?pet_id=<?= $pet['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Видалити?')">Видалити</a>
+        </div>
+    <?php endif; ?>
 </div>
 
 <script>

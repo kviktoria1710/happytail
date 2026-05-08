@@ -96,7 +96,7 @@ if ($is_home):
         <?php else: ?>
             <?php foreach ($pets as $pet): ?>
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm border-0 pet-card">
+                    <div class="card h-100 shadow-sm border-0 pet-card" style="border-radius: 15px; overflow: hidden;">
                         <?php if (!empty($pet['image'])): ?>
                             <img src="img/<?= htmlspecialchars($pet['image']) ?>" class="card-img-top pet-img" alt="<?= htmlspecialchars($pet['name']) ?>" style="height: 220px; object-fit: cover;">
                         <?php else: ?>

@@ -58,6 +58,13 @@
                     <li class="nav-item">
                         <a class="btn btn-outline-danger btn-sm mt-1" href="<?= $base_path ?>admin/logout.php">Вихід</a>
                     </li>
+                <?php elseif (isset($_SESSION['user_id'])): ?>
+                    <li class="nav-item">
+                        <span class="navbar-text mr-3 text-dark">👤 <?= htmlspecialchars($_SESSION['user_name']) ?></span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-secondary btn-sm mt-1" href="<?= $base_path ?>admin/logout.php">Вихід</a>
+                    </li>
                 <?php else: ?>
                     <li class="nav-item">
                         <a class="btn btn-outline-dark btn-sm mt-1" href="<?= $base_path ?>login/index.php">Увійти</a>

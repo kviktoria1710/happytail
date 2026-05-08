@@ -56,7 +56,7 @@ require_once 'include/header.php';
                 </div>
 
                 <div class="mt-4">
-                    <a href="javascript:history.back()" class="btn btn-outline-secondary">← Назад</a>
+                    <a href="lost-found.php" class="btn btn-outline-secondary">← Назад</a>
                     <?php if(is_admin() || (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $item['user_id'])): ?>
                         <a href="edit-announcement.php?id=<?= $item['id'] ?>" class="btn btn-info">Редагувати</a>
                         <a href="delete-announcement.php?id=<?= $item['id'] ?>" class="btn btn-danger" onclick="return confirm('Ви впевнені?')">Видалити</a>
